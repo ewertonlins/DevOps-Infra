@@ -1,0 +1,17 @@
+- name: Configurar servidores EC2
+  hosts: all
+  become: yes
+  remote_user: ec2-user
+
+  tasks:
+    - name: Atualizar repositórios
+      command: sudo yum update -y
+
+    - name: Instalar Nginx (Amazon Linux 2/2023)
+      command: sudo amazon-linux-extras install nginx1 -y
+
+    - name: Iniciar e habilitar Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
